@@ -9,21 +9,21 @@ check_session_id();
 
 //データが存在するかCheckする※messageを追加する際はAdminのカラムも忘れずに！
 if (
-  !isset($_POST['fullcode']) || $_POST['fullcode'] == '' ||
-  !isset($_POST['dnar']) || $_POST['dnar'] == '' ||
-  !isset($_POST['bsc']) || $_POST['bsc'] == '' ||
-  !isset($_POST['handsonly']) || $_POST['handsonly'] == '' ||
-  !isset($_POST['other']) || $_POST['other'] == '' ||
+  //!isset($_POST['fullcode']) || $_POST['fullcode'] == '' ||
+  //!isset($_POST['dnar']) || $_POST['dnar'] == '' ||
+  //!isset($_POST['bsc']) || $_POST['bsc'] == '' ||
+  //!isset($_POST['handsonly']) || $_POST['handsonly'] == '' ||
+  //!isset($_POST['other']) || $_POST['other'] == '' ||
   //!isset($_POST['message']) || $_POST['message'] == '' ||
   !isset($_POST['date']) || $_POST['date'] == '' ||
   !isset($_POST['name']) || $_POST['name'] == '' ||
-  !isset($_POST['evidence']) || $_POST['evidence'] == ''
+  !isset($_FILES['evidence']) || $_FILES['evidence'] == ''
 ) {
   echo json_encode(["error_msg" => "no input123"]);
   exit();
 }
 
-//データがあれば値を取得する
+//データがあれば値を取得して変数へ格納する
 $fullcode = $_POST['fullcode'];
 $dnar = $_POST['dnar'];
 $bsc = $_POST['bsc'];
@@ -32,7 +32,7 @@ $other = $_POST['other'];
 //$message = $_POST['message'];
 $date = $_POST['date'];
 $name = $_POST['name'];
-$evidence = $_POST['evidence'];
+$evidence = $_FILES['evidence'];
 
 // videoデータの確認
 if (isset($_FILES['evidence']) && $_FILES['evidence']['error'] == 0) {
@@ -63,7 +63,7 @@ if (isset($_FILES['evidence']) && $_FILES['evidence']['error'] == 0) {
 $pdo = connect_to_db();
 
 //will_tableに入力(INSERT)  ※↓後程messageを追加する(VALUESの方にも忘れずに！)
-$sql = 'INSERT INTO will_table(id, fullcode, dnar, bsc, handsonly, other, date, name, evidence, created_at, updated_at) VALUES(NULL, :fullcode, :dnar, :bsc, :handsonly, :other, :date, :name, evidence, now(), now())';
+$sql = 'INSERT INTO will_table(id, fullcode, dnar, bsc, handsonly, other, date, name, evidence, created_at, updated_at) VALUES(NULL, :fullcode, :dnar, :bsc, :handsonly, :other, :date, :name, :evidence, now(), now())';
 
 //バインド変数：悪意ある入力を防ぐ
 $stmt = $pdo->prepare($sql);
@@ -71,8 +71,8 @@ $stmt->bindValue(':fullcode', $fullcode, PDO::PARAM_STR);
 $stmt->bindValue(':dnar', $dnar, PDO::PARAM_STR);
 $stmt->bindValue(':bsc', $bsc, PDO::PARAM_STR);
 $stmt->bindValue(':handsonly', $handsonly, PDO::PARAM_STR);
-$stmt->bindValue(':other', $deadline, PDO::PARAM_STR);
-//$stmt->bindValue(':message', $save_path, PDO::PARAM_STR);　//←後程追加する
+$stmt->bindValue(':other', $other, PDO::PARAM_STR);
+//$stmt->bindValue(':message', $save_path, PDO::PARAM_STR); //←後程追加する
 $stmt->bindValue(':date', $date, PDO::PARAM_STR);
 $stmt->bindValue(':name', $name, PDO::PARAM_STR);
 $stmt->bindValue(':evidence', $save_path, PDO::PARAM_STR);
