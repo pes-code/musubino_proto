@@ -17,7 +17,7 @@ check_session_id();
   <form action="m_create_file.php" method="POST" enctype="multipart/form-data">
     <fieldset>
       <legend>MUSUBINO~医療における私の希望~（入力）</legend>
-
+      <h4>1．医療行為に関して御希望をお書き下さい。</h4>
       <div class="item_box1">
         <input type="checkbox" name="fullcode" value="Full Code"><label class="item1">Full Code</label>
         <span class="text1">【Full Code】
@@ -43,15 +43,17 @@ check_session_id();
       </div>
       </div>
       <div class="other_hope">
-        <h4>2．その他の希望</h4>
-        <input type="textaria" name="other">
+        <h4>2．その他に御希望があればお書き下さい。</h4>
+        <textarea rows="10" cols="50" name="other" placeholder="例】意識がなくても隅々の関節をしっかり動かして欲しい"></textarea>
       </div>
-      <!--
-        <div class="message_mive">
-        <h4>3．大切なあなたへ</h4>
+
+      <!-------------------------------------------------------------------------------------------------------->
+      <div class="message_mive">
+        <h4>3．大切な方へビデオメッセージを残してみませんか？</h4>
         <input type="file" name="message" accept="video/*" capture="camera" />
-      </div> 
-    -->
+      </div>
+      <!-------------------------------------------------------------------------------------------------------->
+
     </fieldset>
     <div>
       <p>以上、私の要望を忠実に果たしてくださった方々に深く感謝申し上げるとともに、
@@ -61,7 +63,7 @@ check_session_id();
     <div class="sign">
       <label>記入日</label><input type="date" name="date">
       <label>本人署名</label><input type="text" name="name">
-      <label>本人証明<input type="file" name="evidence" accept="video/*" capture="camera" />
+      <label>本人証明<input type="file" name="evidence" accept="video/*" capture="camera"></label>
     </div>
     <button>登録</button>
   </form>

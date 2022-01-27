@@ -9,10 +9,10 @@ if (
   !isset($_POST['bsc']) || $_POST['bsc'] == '' ||
   !isset($_POST['handsonly']) || $_POST['handsonly'] == '' ||
   !isset($_POST['other']) || $_POST['other'] == '' ||
-  //!isset($_POST['message']) || $_POST['message'] == '' ||
+  //!isset($_FILES['message']) || $_FILES['message'] == '' ||
   !isset($_POST['date']) || $_POST['date'] == '' ||
   !isset($_POST['name']) || $_POST['name'] == '' ||
-  !isset($_POST['evidence']) || $_POST['evidence'] == '' ||
+  !isset($_FILES['evidence']) || $_FILES['evidence'] == '' ||
   !isset($_POST['id']) || $_POST['id'] == ''
 ) {
   echo json_encode(["error_msg" => "no input"]);
@@ -24,10 +24,10 @@ $dnar = $_POST['dnar'];
 $bsc = $_POST['bsc'];
 $handsonly = $_POST['handsonly'];
 $other = $_POST['other'];
-//$message = $_POST['message'];
+//$message = $_FILES['message'];
 $date = $_POST['date'];
 $name = $_POST['name'];
-$evidence = $_POST['evidence'];
+$evidence = $_FILES['evidence'];
 $id = $_POST["id"];
 
 $pdo = connect_to_db();
@@ -40,7 +40,7 @@ $stmt->bindValue(':fullcode', $fullcode, PDO::PARAM_STR);
 $stmt->bindValue(':dnar', $dnar, PDO::PARAM_STR);
 $stmt->bindValue(':bsc', $bsc, PDO::PARAM_STR);
 $stmt->bindValue(':handsonly', $handsonly, PDO::PARAM_STR);
-$stmt->bindValue(':other', $deadline, PDO::PARAM_STR);
+$stmt->bindValue(':other', $other, PDO::PARAM_STR);
 //$stmt->bindValue(':message', $save_path, PDO::PARAM_STR);
 $stmt->bindValue(':date', $date, PDO::PARAM_STR);
 $stmt->bindValue(':name', $name, PDO::PARAM_STR);

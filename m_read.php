@@ -32,7 +32,7 @@ foreach ($result as $record) {
      <td>{$record["bsc"]}</td>
      <td>{$record["handsonly"]}</td>   
      <td>{$record["other"]}</td>
-
+     <td><video controls controlsList='nodownload' oncontextmenu='return false;' src='{$record["message"]}' height='150px'></td>
      <td>{$record["date"]}</td>
      <td>{$record["name"]}</td>
      <td><video controls controlsList='nodownload' oncontextmenu='return false;' src='{$record["evidence"]}' height='150px'></td>
