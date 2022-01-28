@@ -9,6 +9,8 @@ $pdo = connect_to_db();
 
 //Like機能
 //$sql = 'SELECT * FROM will_table LEFT OUTER JOIN (SELECT todo_id, COUNT(id) AS like_count FROM like_table GROUP BY todo_id) AS result_table ON todo_table.id = result_table.todo_id';
+//現在ログイン中のアカウントのデータのみを出力する&1アカウント1レコードしか入力できないようにする（editへジャンプするようにするか）///$sql = 'SELECT * FROM will_table WHERE id=///この部分に何を入れるか？///';
+
 $sql = 'SELECT * FROM will_table WHERE is_deleted=0 ORDER BY date ASC';
 
 $stmt = $pdo->prepare($sql);
@@ -45,8 +47,6 @@ foreach ($result as $record) {
     </tr>
   ";
 }
-//↑後程追加： <td><video controls controlsList='nodownload' oncontextmenu='return false;' src='{$record["message"]}' height='150px'></td>
-
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +62,7 @@ foreach ($result as $record) {
   <fieldset>
     <legend>MUSUBINO（一覧画面）</legend>
     <a href="m_input.php">入力画面</a>
-    <a href="m_logout.php">logout</a>
+    <a href="u_logout.php">ログアウト</a>
     <table>
       <thead>
         <tr>

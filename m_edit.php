@@ -8,10 +8,16 @@ $id = $_GET["id"];
 
 $pdo = connect_to_db();
 
-$sql = 'SELECT * FROM will_table WHERE id=:id';
-
+$sql = 'SELECT * FROM will_table WHERE id=:id AND other=:other AND message=:message AND date=:date AND name=:name AND evidence=:evidence ';
+//↑後ほど追加 fullcode=:fullcode AND dnar=:dnar AND bsc=:bsc AND handsonly=:handsonly AND
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+$stmt->bindValue(':other', $other, PDO::PARAM_STR);
+$stmt->bindValue(':message', $save_path_m, PDO::PARAM_STR);
+$stmt->bindValue(':date', $date, PDO::PARAM_STR);
+$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+$stmt->bindValue(':evidence', $save_path, PDO::PARAM_STR);
+
 
 try {
   $status = $stmt->execute();
@@ -20,7 +26,7 @@ try {
   exit();
 }
 
-$record = $stmt->fetch(PDO::FETCH_ASSOC);
+$record = $stmt->fetch(PDO::FETCH_ASSOC); //fetch→fetchAllへ変更
 
 ?>
 
@@ -66,12 +72,12 @@ $record = $stmt->fetch(PDO::FETCH_ASSOC);
         <h4>2．その他の希望</h4>
         <input type="textaria" name="other">
       </div>
-      <!--
-        <div class="message_mive">
+
+      <div class="message_mive">
         <h4>3．大切なあなたへ</h4>
         <input type="file" name="message" accept="video/*" capture="camera" />
-      </div> 
-    -->
+      </div>
+
     </fieldset>
     <div>
       <p>以上、私の要望を忠実に果たしてくださった方々に深く感謝申し上げるとともに、

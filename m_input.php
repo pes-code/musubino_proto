@@ -2,6 +2,9 @@
 session_start();
 include("functions.php");
 check_session_id();
+
+$today = date("Y-m-d"); //本日の年月日を取得
+
 ?>
 
 <!DOCTYPE html>
@@ -22,17 +25,22 @@ check_session_id();
         <input type="checkbox" name="fullcode" value="Full Code"><label class="item1">Full Code</label>
         <span class="text1">【Full Code】
           <br>あらゆる蘇生行為を行ないます。
+          <br><a href="https://blog.goo.ne.jp/maplewine/e/fade753766a463953f8cf6b8bbac6f1a">関連情報</a>
+          <!--ウインドウの中に配置すると現時点ではクリックできないため改善が必要-->
         </span>
       </div>
       <div class="item_box2">
         <input type="checkbox" name="dnar" value="DNAR"><label class="item2">DNAR</label>
         <span class="text2">【DNAR】
           <br>心肺が停止した際は蘇生行為は行ないません。しかし心肺が停止していない場合は救命行為を行なう事になります。
+          <br><a href="https://kaigo.homes.co.jp/tayorini/youtube_clinic/09/">関連情報</a>
+        </span>
       </div>
       <div class="item_box3">
         <input type="checkbox" name="bsc" value="BSC"><label class="item3">BSC</label>
         <span class="text3">【BSC】
           <br>病気に対する治療ではなく、病気に伴う苦痛症状の緩和を目的とした対症療法を行ないます。
+          <br><a href="https://oncolo.jp/dictionary/bsc">関連情報</a>
         </span>
       </div>
       <div class="item_box4">
@@ -51,6 +59,7 @@ check_session_id();
       <div class="message_mive">
         <h4>3．大切な方へビデオメッセージを残してみませんか？</h4>
         <input type="file" name="message" accept="video/*" capture="camera" />
+        <!--<capture="user">とすればスマホのフロントカメラが起動する？-->
       </div>
       <!-------------------------------------------------------------------------------------------------------->
 
@@ -61,9 +70,11 @@ check_session_id();
       </p>
     </div>
     <div class="sign">
-      <label>記入日</label><input type="date" name="date">
-      <label>本人署名</label><input type="text" name="name">
-      <label>本人証明<input type="file" name="evidence" accept="video/*" capture="camera"></label>
+      <label>記入日</label><input type="date" name="date" value="<?= $today ?>" readonly>
+      <!--$today(本日のdate)を表示,readonlyで変更不能とする-->
+      <label>本人署名</label><input type="text" value="<?= $_SESSION["name"] ?>" name="name" readonly>
+      <!--$_SESSION["name"](ユーザー名)を表示,readonlyで変更不能とする-->
+      <label>本人証明<input type="file" name="evidence" accept="video/*" capture="camera" /></label>
     </div>
     <button>登録</button>
   </form>

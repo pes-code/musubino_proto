@@ -24,12 +24,12 @@ try {
 
 $val = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$val) {
+if (!$val) { //$val(=name,mail,passのデータ)があるかチェック
   echo "<p>ログイン情報に誤りがあります．</p>";
   echo '<a href="u_login.php">ログイン画面へ</a>';
   exit();
-} else {
-  $_SESSION = array();
+} else { //上記データがある場合はセッション変数にデータを入れる。
+  $_SESSION = array(); //一旦セッション変数を空にする。
   $_SESSION["session_id"] = session_id();
   $_SESSION["is_admin"] = $val["is_admin"];
   $_SESSION["name"] = $val["name"];
